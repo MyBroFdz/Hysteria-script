@@ -111,7 +111,7 @@ downloadHysteria() {
         exit 1
     fi
     yellow "检测到 Hysteria 最新版本：${last_version}，开始安装"
-    wget -N --no-check-certificate https://github.com/HyNetwork/Hysteria/releases/download/v${last_version}/Hysteria-tun-linux-$(archAffix) -O /usr/bin/hysteria
+    wget -N --no-check-certificate https://github.com/HyNetwork/Hysteria/releases/download/v${last_version}/Hysteria-linux-$(archAffix) -O /usr/bin/hysteria
     if [[ $? -ne 0 ]]; then
         red "下载 Hysteria 失败，请确保你的服务器能够连接并下载 Github 的文件"
         exit 1
@@ -141,6 +141,8 @@ makeConfig() {
     "listen": ":$PORT",
     "cert": "/root/Hysteria/cert.crt",
     "key": "/root/Hysteria/private.key",
+    "up_mbps": 20,
+    "down_mbps": 100,
     "obfs": "$OBFS"
 }
 EOF
@@ -148,8 +150,8 @@ EOF
 {
     "server": "$IP:$PORT",
     "obfs": "$OBFS",
-    "up_mbps": 200,
-    "down_mbps": 1000,
+    "up_mbps": 20,
+    "down_mbps": 100,
     "insecure": true,
     "socks5": {
         "listen": "127.0.0.1:1080"
@@ -163,8 +165,8 @@ EOF
 {
     "server": "$IP:$PORT",
     "obfs": "$OBFS",
-    "up_mbps": 200,
-    "down_mbps": 1000,
+    "up_mbps": 20,
+    "down_mbps": 100,
     "insecure": true,
     "acl": "acl/routes.acl",
     "mmdb": "acl/Country.mmdb",
