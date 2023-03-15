@@ -142,7 +142,7 @@ makeConfig() {
     "cert": "/root/Hysteria/cert.crt",
     "key": "/root/Hysteria/private.key",
     "up_mbps": 20,
-    "down_mbps": 100,
+    "down_mbps": 200,
     "obfs": "$OBFS"
 }
 EOF
@@ -151,7 +151,7 @@ EOF
     "server": "$IP:$PORT",
     "obfs": "$OBFS",
     "up_mbps": 20,
-    "down_mbps": 100,
+    "down_mbps": 200,
     "insecure": true,
     "socks5": {
         "listen": "127.0.0.1:1080"
@@ -160,6 +160,29 @@ EOF
         "listen": "127.0.0.1:1081"
     }
 }
+EOF
+    cat <<EOF > /root/Hysteria/clashmeta.yaml
+proxies:
+  - name: "hysteria"
+    type: hysteria
+    server: $IP
+    port: $PORT
+    #auth_str: yourpassword
+    obfs: $OBFS
+    insecure: true
+    alpn:
+      - h3  #1.13.2以上版本变更为数组
+    protocol: udp          #支持udp/wechat-video/faketcp
+    up: '30 Mbps'          #若不写单位，默认为Mbps
+    down: '200 Mbps'       #若不写单位，默认为Mbps
+    #sni: server.com
+    #skip-cert-verify: false
+    #recv_window_conn: 12582912
+    #recv_window: 52428800
+    #auth_str: "yubiyubi"
+    #ca: "./my.ca"
+    #ca_str: "xyz"
+    #disable_mtu_discovery: false
 EOF
     cat <<EOF > /root/Hysteria/v2rayn.json
 {
